@@ -64,14 +64,14 @@ describe Storext do
     it "can properly coerce boolean values with predicater methods" do
       book = Book.new
       book.hardcover = false
-      book.paperback = true
-      
       expect(book.data['hardcover']).to eq false
       expect(book.hardcover?).to eq false
       expect(book.hardcover?.class).to eq FalseClass
-      expect(book.data['paperback']).to eq true
-      expect(book.paperback?).to eq true
-      expect(book.paperback?.class).to eq TrueClass
+
+      book.hardcover = true
+      expect(book.data['hardcover']).to eq true
+      expect(book.hardcover?).to eq true
+      expect(book.hardcover?.class).to eq TrueClass
     end
 
     it "can access predicater methods for all attributes (with or without defaults)" do
