@@ -24,10 +24,12 @@ module Storext
     def storext_define_predicater(column, attr)
       define_method "#{attr}?" do
         return false unless send(column) && send(column).has_key?(attr.to_s)
-        if read_store_attribute(column, attr).is_a? String
-          !read_store_attribute(column, attr).blank?
+        store_val = read_store_attribute(column, attr)
+        casted_store_val = storext_cast_proxy.send("#{attr}=", store_val)
+        if casted_store_val.is_a? String
+          !casted_store_val.blank?
         else
-          !!read_store_attribute(column, attr)
+          !!casted_store_val
         end
       end
     end
